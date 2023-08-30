@@ -1,0 +1,8 @@
+name: terragrunt-modules-detection
+inputs:
+  flags:
+    description: Test
+run:
+  exec: |
+    npm i -g zx
+    ./modules-detection.mjs
