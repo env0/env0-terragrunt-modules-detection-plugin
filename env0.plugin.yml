@@ -5,5 +5,4 @@ inputs:
 run:
   exec: |
     npm i zx
-    echo $ENV0_PLUGIN_PATH
     npx zx $ENV0_PLUGIN_PATH/modules-detection.mjs
