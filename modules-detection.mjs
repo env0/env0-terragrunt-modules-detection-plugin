@@ -18,9 +18,13 @@ async function detect() {
 
     const fileChanges = fileChangesRaw.trim().split('\n');
     const filteredFileChanges = fileChanges.filter(file => file.startsWith(workingDir));
-    const folderChanges = filteredFileChanges.map(file => path.dirname(file).replace(path.join(workingDir, '/'), ''));
+    const folderChanges = uniq(filteredFileChanges.map(file => path.dirname(file).replace(path.join(workingDir, '/'), '')));
 
-    console.log('Detect next folders changed:', folderChanges);
+    console.log('Detected next modules changed:', folderChanges);
 
     await $`echo ENV0_TERRAGRUNT_RUN_ALL_INCLUDE_DIRS=${folderChanges.join(',')} >> $ENV0_ENV`;
+}
+
+function uniq(items) {
+    return [...new Set(items)];
 }
