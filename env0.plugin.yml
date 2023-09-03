@@ -1,5 +1,5 @@
 name: terragrunt-modules-detection
-inputs: ~
+inputs: {}
 run:
   exec: |
     npm i zx
