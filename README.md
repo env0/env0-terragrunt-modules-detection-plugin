@@ -1,2 +1,20 @@
-# env0-terragrunt-modules-detection-plugin
-The plugin allows you to run terragrunt run-all only on the modules who change between commits
+# env0 terragrunt modules detection
+This env0 plugin will allow you to trigger only terragrunt modules that were changed in the current Pull Request.
+
+**Currently, the plugin only support [Pr Plan](https://docs.env0.com/docs/plan-on-pull-request) and it will detect all modules change for specific PR.**
+
+## Inputs
+The plugin doesn't support any inputs.
+
+## Example Usage
+
+```yaml
+version: 2
+deploy:
+  steps:
+    terraformPlan:
+      before:
+        - name: Terragrunt Modules Detection
+          use: https://github.com/env0/env0-terragrunt-modules-detection-plugin
+
+```
