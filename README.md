@@ -4,7 +4,7 @@ This env0 plugin will allow you to trigger only terragrunt modules that were cha
 **Currently, the plugin only support [Pr Plan](https://docs.env0.com/docs/plan-on-pull-request) and it will detect all modules change for specific PR.**
 
 ## Inputs
-The plugin doesn't support any inputs.
+The plugin doesn't require any inputs.
 
 ## Example Usage
 
