@@ -14,6 +14,7 @@ async function detect() {
         return;
     }
 
+    await $`git fetch`;
     const { stdout: fileChangesRaw } = await $`git diff --name-only  ${sourceRef}..origin/${targetRef}`;
 
     const fileChanges = fileChangesRaw.trim().split('\n');
