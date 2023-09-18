@@ -14,7 +14,7 @@ async function detect() {
         return;
     }
 
-    const { stdout: fileChangesRaw } = await $`git diff --name-only  ${sourceRef}..${targetRef}`;
+    const { stdout: fileChangesRaw } = await $`git diff --name-only  ${sourceRef}..origin/${targetRef}`;
 
     const fileChanges = fileChangesRaw.trim().split('\n');
     const filteredFileChanges = fileChanges.filter(file => file.startsWith(workingDir));
