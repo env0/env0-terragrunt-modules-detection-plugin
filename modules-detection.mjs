@@ -1,6 +1,6 @@
 #!/usr/bin/env zx
 
-const { ENV0_PR_SOURCE_BRANCH, ENV0_PR_TARGET_BRANCH, ENV0_TEMPLATE_PATH } = process.env;
+const {ENV0_PR_SOURCE_BRANCH, ENV0_PR_TARGET_BRANCH, ENV0_TEMPLATE_PATH} = process.env;
 
 const sourceRef = ENV0_PR_SOURCE_BRANCH;
 const targetRef = ENV0_PR_TARGET_BRANCH;
@@ -15,7 +15,11 @@ async function detect() {
     }
 
     await $`git fetch`;
-    const { stdout: fileChangesRaw } = await $`git diff --name-only  ${sourceRef}..origin/${targetRef}`;
+
+    const {stdout: branches} = await $`git branch -a`;
+    console.log(`All branches:\n${branches}`)
+
+    const {stdout: fileChangesRaw} = await $`git diff --name-only  ${'refs/heads/' + sourceRef}..${'refs/remotes/origin/' + targetRef}`;
 
     const fileChanges = fileChangesRaw.trim().split('\n');
     const filteredFileChanges = fileChanges.filter(file => file.startsWith(workingDir));
