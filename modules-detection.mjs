@@ -1,21 +1,24 @@
 #!/usr/bin/env zx
 
-const { ENV0_PR_SOURCE_BRANCH, ENV0_PR_TARGET_BRANCH, ENV0_TEMPLATE_PATH } = process.env;
+const {ENV0_PR_SOURCE_BRANCH, ENV0_PR_TARGET_BRANCH, ENV0_TEMPLATE_PATH} = process.env;
 
-const sourceRef = ENV0_PR_SOURCE_BRANCH;
-const targetRef = ENV0_PR_TARGET_BRANCH;
+const sourceBranch = ENV0_PR_SOURCE_BRANCH;
+const targetBranch = ENV0_PR_TARGET_BRANCH;
 const workingDir = ENV0_TEMPLATE_PATH || ''
 
 await detect();
 
 async function detect() {
-    if (!sourceRef || !targetRef) {
-        console.log(`Skipping - can't detect source or target refs. source [${sourceRef}] target [${targetRef}]`);
+    if (!sourceBranch || !targetBranch) {
+        console.log(`Skipping - can't detect source or target branch. Source [${sourceBranch}] target [${targetBranch}]`);
         return;
     }
 
-    await $`git fetch`;
-    const { stdout: fileChangesRaw } = await $`git diff --name-only  ${sourceRef}..origin/${targetRef}`;
+    await $`git fetch origin ${targetBranch + ':refs/remotes/origin/' + targetBranch}`;
+
+    await $`git branch -a`;
+
+    const {stdout: fileChangesRaw} = await $`git diff --name-only ${sourceBranch}..${'remotes/origin/' + targetBranch}`;
 
     const fileChanges = fileChangesRaw.trim().split('\n');
     const filteredFileChanges = fileChanges.filter(file => file.startsWith(workingDir));

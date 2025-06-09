@@ -2,5 +2,4 @@ name: terragrunt-modules-detection
 inputs: {}
 run:
   exec: |
-    npm i zx
-    npx zx $ENV0_PLUGIN_PATH/modules-detection.mjs
+    npx --yes zx --verbose $ENV0_PLUGIN_PATH/modules-detection.mjs
